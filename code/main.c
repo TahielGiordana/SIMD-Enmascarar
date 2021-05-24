@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-
-int main(){
+#include <stdlib.h>
 /*
 
 enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *c, unsigned char *mask, int cant){
@@ -57,4 +55,54 @@ img_c = enmascarar_c(&img1, &img2, &mask, cant);
 img_asm = enmascarar_asm(&img1, &img2, &mask, cant);
 
 */
+
+int main(int argc, char *argv[]){
+    FILE *img1 = fopen("pacman_1.rgb","rb");
+    FILE *imgOut = fopen("pacman_salida.rgb","wb");
+
+    int i,r,g,b;
+    int alto = 300;
+    int ancho = 300;
+
+    int size = ancho*alto;
+
+    unsigned char buffer[size][3];
+
+    
+    for(i=0;i<size;i++){
+        r = 0;
+        g = 0;
+        b = 0;
+
+        //Obtengo cada pixel de la imagen
+        buffer[i][2] = getc(img1);
+        buffer[i][1] = getc(img1);
+        buffer[i][0] = getc(img1);
+
+        //Modifico los pixeles
+        r = buffer[i][0]+50;
+        g = buffer[i][0]+50;
+        b = buffer[i][0]+50;
+
+        //Reviso que no se pasen de 255
+        if(r>255){
+            r = 255;
+        }
+        if(g>255){
+            g = 255;
+        }
+        if(b>255){
+            b = 255;
+        }
+
+        //Escribo los valores en el nuevo archivo
+        putc(b,imgOut);
+        putc(g,imgOut);
+        putc(r,imgOut);
+    }
+
+
+    fclose(img1);
+    fclose(imgOut);
+
 }
