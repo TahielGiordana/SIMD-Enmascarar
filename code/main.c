@@ -1,95 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
-/*
-
-enmascarar_c(unsigned char *a, unsigned char *b, unsigned char *c, unsigned char *mask, int cant){
-
-enmascarar_asm(unsigned char *a, unsigned char *b, unsigned char *c, unsigned char *mask, int cant){
-    
-loop:
-    cargar una cantidad de bytes de cada imagen en los registros
-
-    mov xmm0, a
-    mov xmm1, b
-    mov xmm2, c
-
-    xmm0 and xmm2 elimina de img1 los pixeles blancos de la mascara
-
-    not xmm2 invierte la mascara
-
-    xmm1 and xmm2 elimina de img2 los pixeles negros de la mascara
-
-    xmm0 + xmm1 compone la imagen
-
-    modificar ebp para seleccionar los bytes siguientes
-
-    verificar que cont != cant
-
-    jmp loop
-
-return salida_asm.rgb;
-};
-
-*/
 
 int main(int argc, char *argv[]){
-    FILE *img1 = fopen("pacman_1.rgb","rb");
-    FILE *img2 = fopen("pacman_2.rgb","rb");
-    FILE *mask = fopen("pacman_mask.rgb","rb");
-    FILE *imgOut = fopen("pacman_salida.rgb","wb");
+    FILE *img1,*img2,*mask,*imgOut;
+    long size;
+    char *buffer1,*buffer2,*buffer3,*bufferSalida;
 
-    int i,r,g,b;
-    int alto = 300;
-    int ancho = 300;
+    img1 = fopen("../img/space1.rgb","rb");
+    img2 = fopen("../img/space2.rgb","rb");
+    mask = fopen("../img/spacemask.rgb","rb");
+    imgOut = fopen("space_salida.rgb","wb");
 
-    int size = ancho*alto;
+    int alto = 2160;
+    int ancho = 3840;
+    size = ancho*alto*3;
 
-    unsigned char buffer1[size][3];
-    unsigned char buffer2[size][3];
-    unsigned char buffer3[size][3];
+    buffer1 = (char*) malloc(size);
+    buffer2 = (char*) malloc(size);
+    buffer3 = (char*) malloc(size);
 
+    size_t final = fread(buffer1,1,size,img1);
+    final = fread(buffer2,1,size,img2);
+    final = fread(buffer3,1,size,mask);
+
+    unsigned char ch;
     
-    for(i=0;i<size;i++){
-        r = 0;
-        g = 0;
-        b = 0;
-
-        //Obtengo cada pixel de la imagen
-        buffer1[i][0] = getc(img1);
-        buffer1[i][1] = getc(img1);
-        buffer1[i][2] = getc(img1);
-
-        buffer2[i][0] = getc(img2);
-        buffer2[i][1] = getc(img2);
-        buffer2[i][2] = getc(img2);
-
-        buffer3[i][0] = getc(mask);
-        buffer3[i][1] = getc(mask);
-        buffer3[i][2] = getc(mask);
-
+    for(long i=0;i<size;i+=3){
+        ch = (unsigned char)buffer3[i];
+        printf("%u",(unsigned int)ch);
         //Modifico los pixeles
-        if(buffer3[i][0] != 255){
-            
-            r = buffer1[i][0];
-            g = buffer1[i][1];
-            b = buffer1[i][2];
+        if((unsigned int)ch == 255){            
+            buffer1[i] = buffer2[i];
+            buffer1[i+1] = buffer2[i+1];
+            buffer1[i+2] = buffer2[i+2];
         }
-        else{
-            
-            r = buffer2[i][0];
-            g = buffer2[i][1];
-            b = buffer2[i][2];
-        }
-
-        //Escribo los valores en el nuevo archivo
-        putc(r,imgOut);
-        putc(g,imgOut);
-        putc(b,imgOut);
     }
+
+    fwrite(buffer1,1,size,imgOut);
+
+    free(buffer1);
+    free(buffer2);
+    free(buffer3);
 
     fclose(img1);
     fclose(img2);
     fclose(mask);
     fclose(imgOut);
-
+    
 }
