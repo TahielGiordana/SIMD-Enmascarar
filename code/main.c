@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]){
     FILE *img1,*img2,*mask,*imgOut;
     long size;
-    char *buffer1,*buffer2,*buffer3,*bufferSalida;
+    unsigned char *buffer1,*buffer2,*buffer3,*bufferSalida;
 
     img1 = fopen("../img/space1.rgb","rb");
     img2 = fopen("../img/space2.rgb","rb");
@@ -27,7 +27,6 @@ int main(int argc, char *argv[]){
     
     for(long i=0;i<size;i+=3){
         ch = (unsigned char)buffer3[i];
-        printf("%u",(unsigned int)ch);
         //Modifico los pixeles
         if((unsigned int)ch == 255){            
             buffer1[i] = buffer2[i];
