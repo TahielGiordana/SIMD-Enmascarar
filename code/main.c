@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void enmascarar_c(unsigned char *buffer1, unsigned char *buffer2, unsigned char *mascara, long tamanio);
+
 int main(int argc, char *argv[]){
     FILE *img1,*img2,*mask,*imgOut;
     long size;
-    unsigned char *buffer1,*buffer2,*buffer3,*bufferSalida;
+    unsigned char *buffer1,*buffer2,*buffer3;
 
     img1 = fopen("../img/space1.rgb","rb");
     img2 = fopen("../img/space2.rgb","rb");
@@ -23,17 +25,7 @@ int main(int argc, char *argv[]){
     final = fread(buffer2,1,size,img2);
     final = fread(buffer3,1,size,mask);
 
-    unsigned char ch;
-    
-    for(long i=0;i<size;i+=3){
-        ch = (unsigned char)buffer3[i];
-        //Modifico los pixeles
-        if((unsigned int)ch == 255){            
-            buffer1[i] = buffer2[i];
-            buffer1[i+1] = buffer2[i+1];
-            buffer1[i+2] = buffer2[i+2];
-        }
-    }
+    enmascarar_c(buffer1,buffer2,buffer3,size);
 
     fwrite(buffer1,1,size,imgOut);
 
@@ -46,4 +38,19 @@ int main(int argc, char *argv[]){
     fclose(mask);
     fclose(imgOut);
     
+}
+
+void enmascarar_c(unsigned char *buffer1, unsigned char *buffer2, unsigned char *mascara, long size){
+    
+    unsigned char ch;
+    
+    for(long i=0;i<size;i+=3){
+        ch = (unsigned char)mascara[i];
+        //Modifico los pixeles
+        if((unsigned int)ch == 255){            
+            buffer1[i] = buffer2[i];
+            buffer1[i+1] = buffer2[i+1];
+            buffer1[i+2] = buffer2[i+2];
+        }
+    }
 }
