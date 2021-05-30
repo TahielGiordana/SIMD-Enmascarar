@@ -9,10 +9,10 @@ float enmascarar_asm(unsigned char *buffer1, unsigned char *buffer2, unsigned ch
 int main(int argc, char *argv[]){
 
     // Validamos cantidad de argumentos
-    if (argc != 4) {
-	printf("Error: Deben ingresarse 3 parametros: imagen1, imagen2 y mascara \n");
-	return 1;
-    }
+	if (argc != 4) {
+		printf("Error: Deben ingresarse 3 parametros: imagen1, imagen2 y mascara \n");
+		return 1;
+	}
 
     //Recibimos la ruta de las imagenes pasadas por argumento
     char* ruta_imagen1 = argv[1];
@@ -44,20 +44,20 @@ int main(int argc, char *argv[]){
 
     //Creamos variables para medir el tiempo transcurrido 
     clock_t inicio_c, fin_c, inicio_asm, fin_asm;
-    double segundos_c;
-    double segundos_asm;
+    int segundos_c;
+	int segundos_asm;
  
-    inicio_asm = clock();
+	inicio_asm = clock();
     enmascarar_asm(buffer1,buffer2,buffer3,size);
     fin_asm = clock();
-    segundos_asm = (double)(fin_asm - inicio_asm);
+    segundos_asm = (int)(fin_asm - inicio_asm);
 
     fwrite(buffer1,1,size,imgOut2);
-
+ 
     inicio_c = clock();
     enmascarar_c(buffer1,buffer2,buffer3,size);
     fin_c = clock();
-    segundos_c = (double)(fin_c - inicio_c);
+    segundos_c = (int)(fin_c - inicio_c);
 
     fwrite(buffer1,1,size,imgOut);
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
     fclose(imgOut);
     fclose(imgOut2);
 
-    printf("Total de posiciones: %ld\nTiempo transcurrido C: %f\nTiempo transcurrido ASM: %f\n(Expresado en unidades de Clock)\n", size, segundos_c, segundos_asm);
+    printf("Total de posiciones: %ld\nTiempo transcurrido C: %d\nTiempo transcurrido ASM: %d\n(Expresado en unidades de Clock)\n", size, segundos_c, segundos_asm);
     
     return 0;
 }
