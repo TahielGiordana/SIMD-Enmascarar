@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void enmascarar_c(unsigned char *buffer1, unsigned char *buffer2, unsigned char *mascara, long tamanio);
 
@@ -8,10 +9,10 @@ float enmascarar_asm(unsigned char *buffer1, unsigned char *buffer2, unsigned ch
 int main(int argc, char *argv[]){
 
     // Validamos cantidad de argumentos
-	if (argc != 4) {
-		printf("Error: Deben ingresarse 3 parametros: imagen1, imagen2 y mascara \n");
-		return 1;
-	}
+    if (argc != 4) {
+	printf("Error: Deben ingresarse 3 parametros: imagen1, imagen2 y mascara \n");
+	return 1;
+    }
 
     //Recibimos la ruta de las imagenes pasadas por argumento
     char* ruta_imagen1 = argv[1];
@@ -28,7 +29,7 @@ int main(int argc, char *argv[]){
     imgOut = fopen("salida_c.rgb","wb");
     imgOut2 = fopen("salida_asm.rgb","wb");
 
-    //Obtenemos el largo tomando la ultima posicion del archivo, luego retornamos a la primera posicion
+    //Obtenemos el largo tomando la ultima posicion del archivo, luego retornamos a la primera posicion 
     fseek(img1, 0, SEEK_END);
     size = ftell(img1);
     rewind(img1); 
@@ -41,11 +42,22 @@ int main(int argc, char *argv[]){
     final = fread(buffer2,1,size,img2);
     final = fread(buffer3,1,size,mask);
 
+    //Creamos variables para medir el tiempo transcurrido 
+    clock_t inicio_c, fin_c, inicio_asm, fin_asm;
+    double segundos_c;
+    double segundos_asm;
+ 
+    inicio_asm = clock();
     enmascarar_asm(buffer1,buffer2,buffer3,size);
-    
+    fin_asm = clock();
+    segundos_asm = (double)(fin_asm - inicio_asm);
+
     fwrite(buffer1,1,size,imgOut2);
 
+    inicio_c = clock();
     enmascarar_c(buffer1,buffer2,buffer3,size);
+    fin_c = clock();
+    segundos_c = (double)(fin_c - inicio_c);
 
     fwrite(buffer1,1,size,imgOut);
 
@@ -59,7 +71,8 @@ int main(int argc, char *argv[]){
     fclose(imgOut);
     fclose(imgOut2);
 
-
+    printf("Total de posiciones: %ld\nTiempo transcurrido C: %f\nTiempo transcurrido ASM: %f\n(Expresado en unidades de Clock)\n", size, segundos_c, segundos_asm);
+    
     return 0;
 }
 
