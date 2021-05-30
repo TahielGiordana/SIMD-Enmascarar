@@ -3,18 +3,21 @@
 
 void enmascarar_c(unsigned char *buffer1, unsigned char *buffer2, unsigned char *mascara, long tamanio);
 
+float enmascarar_asm(unsigned char *buffer1, unsigned char *buffer2, unsigned char *mascara, long tamanio);
+
 int main(int argc, char *argv[]){
-    FILE *img1,*img2,*mask,*imgOut;
+    FILE *img1,*img2,*mask,*imgOut,*imgOut2;
     long size;
     unsigned char *buffer1,*buffer2,*buffer3;
 
-    img1 = fopen("../img/space1.rgb","rb");
-    img2 = fopen("../img/space2.rgb","rb");
-    mask = fopen("../img/spacemask.rgb","rb");
-    imgOut = fopen("space_salida.rgb","wb");
+    img1 = fopen("../img/pacman_1.rgb","rb");
+    img2 = fopen("../img/pacman_2.rgb","rb");
+    mask = fopen("../img/pacman_mask.rgb","rb");
+    imgOut = fopen("salida_c.rgb","wb");
+    imgOut2 = fopen("salida_asm.rgb","wb");
 
-    int alto = 2160;
-    int ancho = 3840;
+    int alto = 300;
+    int ancho = 300;
     size = ancho*alto*3;
 
     buffer1 = (char*) malloc(size);
@@ -24,6 +27,10 @@ int main(int argc, char *argv[]){
     size_t final = fread(buffer1,1,size,img1);
     final = fread(buffer2,1,size,img2);
     final = fread(buffer3,1,size,mask);
+
+    enmascarar_asm(buffer1,buffer2,buffer3,size);
+    
+    fwrite(buffer1,1,size,imgOut2);
 
     enmascarar_c(buffer1,buffer2,buffer3,size);
 
@@ -37,6 +44,7 @@ int main(int argc, char *argv[]){
     fclose(img2);
     fclose(mask);
     fclose(imgOut);
+    fclose(imgOut2);
     
 }
 
