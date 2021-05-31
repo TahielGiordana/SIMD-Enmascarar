@@ -211,7 +211,7 @@ Continuamos compilando y linkeando el código C mediante gcc:
 ```
 gcc -m32 -o main enmascarar.o main.c
 ```
-Se incluye ademas un archivo **compilar.sh** para automatizar esta tarea.
+Se incluye ademas un archivo **compilar.sh** para automatizar esta tarea (ejecutar previamente el comando ```chmod +x ./compilar.sh``` para otorgar los permisos necesarios).
 
 ### Ejecución
 
