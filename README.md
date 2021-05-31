@@ -18,8 +18,7 @@
 
 ## Descripción
 
-El objetivo de este trabajo es comparar la performance de las instrucciones SIMD con las instrucciones aritméticas y lógicas de la AL
-U, se debe desarrollar una aplicación de linea de comandos que combine dos imágens usando una máscara de selección. Implementaremos dos versiones de esta operación: primero en lenguaje C y luego utilizando instrucciones SIMD en lenguaje ensamblador.
+El objetivo de este trabajo es comparar la performance de las instrucciones SIMD con las instrucciones aritméticas y lógicas de la ALU, se debe desarrollar una aplicación de linea de comandos que combine dos imágens usando una máscara de selección. Implementaremos dos versiones de esta operación: primero en lenguaje C y luego utilizando instrucciones SIMD en lenguaje ensamblador.
 
 Las imágenes que recibe son en formato rgb, el cual almacena los valores rojo, verde y azul de cada pixel usando tres bytes consecutivos. Estas imágenes deben tener las mismas dimensiones, además la máscara solo debe contener los valores blanco(FFFFFF) y negro(000000) de manera que los pixeles negros de la máscara seleccionen el pixel de la primer imagen, y los pixeles blancos de la máscara seleccione los pixeles de la segunda.
 
@@ -260,7 +259,7 @@ A continuación se muestran algunos gráficos que permiten visualizar las difere
 
 ![Evolución en Unidades de Clock](https://user-images.githubusercontent.com/54609896/120134866-6c8ee200-c1a5-11eb-9231-793401f09d69.png)
 
-Donde un mayor porcentaje significa peor rendimiento.
+Donde un mayor porcentaje implica un peor rendimiento.
 
 
 
