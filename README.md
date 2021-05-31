@@ -260,5 +260,7 @@ A continuación se muestran algunos gráficos que permiten visualizar las difere
 
 ![Evolución en Unidades de Clock](https://user-images.githubusercontent.com/54609896/120134866-6c8ee200-c1a5-11eb-9231-793401f09d69.png)
 
+Donde un mayor porcentaje significa peor rendimiento.
+
 
 
