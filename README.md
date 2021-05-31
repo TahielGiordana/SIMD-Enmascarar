@@ -223,4 +223,5 @@ Si contamos con GraphicsMagick podremos visualizar estas imágenes con el comand
 gm display -size 3840x2160 salida_c.rgb
 gm display -size 3840x2160 salida_asm.rgb
 ```
+Una alternativa online para visualizar las imágenes podría ser rawpixels.net
 ### Capturas
