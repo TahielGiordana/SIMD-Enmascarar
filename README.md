@@ -228,4 +228,20 @@ gm display -size 3840x2160 salida_asm.rgb
 Una alternativa online para visualizar las imágenes podría ser [Raw Pixels](http://www.rawpixels.net).
 ### Capturas
 
-Se incluyen diversas imágenes de prueba en el repositorio, para probar el funcionamiento de las implementaciones vamos a ejecutar las pruebas sobre los archivos **space_1_HD.rgb**, **space_2_HD.rgb** y **space_mask_HD.rgb** las cuales se visualizan de la siguiente manera:
+Se incluyen diversas imágenes de prueba en el repositorio (se incluyen de distintas resoluciones con el fin de probar que nuestro programa pueda ejecutarse con cualquiera de ellas). Para probar el funcionamiento de las implementaciones vamos a ejecutar las pruebas sobre los archivos **space_1_HD.rgb**, **space_2_HD.rgb** y **space_mask_HD.rgb** las cuales se visualizan de la siguiente manera:
+
+![image](https://user-images.githubusercontent.com/54609896/120131898-b7a5f680-c19f-11eb-9246-e7c45425c489.png)
+
+![image](https://user-images.githubusercontent.com/54609896/120132284-795d0700-c1a0-11eb-9403-f1287ecc58b5.png)
+
+![image](https://user-images.githubusercontent.com/54609896/120132546-e6709c80-c1a0-11eb-8573-b687896a1bd8.png)
+
+Luego, las salidas que obtenemos se visualizan de la siguiente manera:
+
+**salida_c.rgb**:
+
+![image](https://user-images.githubusercontent.com/54609896/120133310-487dd180-c1a2-11eb-8ba1-47004e22fc30.png)
+
+**salida_asm.rgb**:
+
+![image](https://user-images.githubusercontent.com/54609896/120133804-2f295500-c1a3-11eb-9931-f063ee228e94.png)
