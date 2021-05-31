@@ -210,6 +210,8 @@ Continuamos compilando y linkeando el código C mediante gcc:
 ```
 gcc -m32 -o main enmascarar.o main.c
 ```
+Se incluye ademas un archivo **compilar.sh** para automatizar esta tarea.
+
 ### Ejecución
 
 Una vez compilado podremos ejecutar el programa indicando la ruta de las imágenes. En nuestro caso contamos con imágenes de prueba en la carpeta img, por lo tanto un ejemplo sería el siguiente:
@@ -223,5 +225,7 @@ Si contamos con GraphicsMagick podremos visualizar estas imágenes con el comand
 gm display -size 3840x2160 salida_c.rgb
 gm display -size 3840x2160 salida_asm.rgb
 ```
-Una alternativa online para visualizar las imágenes podría ser rawpixels.net
+Una alternativa online para visualizar las imágenes podría ser [Raw Pixels](http://www.rawpixels.net).
 ### Capturas
+
+Se incluyen diversas imágenes de prueba en el repositorio, para probar el funcionamiento de las implementaciones vamos a ejecutar las pruebas sobre los archivos **space_1_HD.rgb**, **space_2_HD.rgb** y **space_mask_HD.rgb** las cuales se visualizan de la siguiente manera:
