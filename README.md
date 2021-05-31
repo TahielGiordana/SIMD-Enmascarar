@@ -82,18 +82,31 @@ Utilizamos variables de tipo FILE para almacenar los archivos. Mediante el méto
     final = fread(buffer2,1,size,img2);
     final = fread(buffer3,1,size,mask);
 ```
-
-Realizamos el llamado a ambas funciones y escibimos los datos en los archivos de salida.
+Tomamos el tiempo que conlleva crear las imágenes con cada función para comparar la performance entre el uso de la ALU y de SIMD.
 ```c
+//Creamos variables para medir el tiempo transcurrido 
+    clock_t inicio_c, fin_c, inicio_asm, fin_asm;
+    int segundos_c;
+    int segundos_asm;    
+```
+
+Realizamos el llamado a ambas funciones y escibimos los datos en los archivos de salida controlando el tiempo de ejecución.
+```c
+    inicio_asm = clock();
     enmascarar_asm(buffer1,buffer2,buffer3,size);
+    fin_asm = clock();
+    segundos_asm = (int)(fin_asm - inicio_asm);
     
     fwrite(buffer1,1,size,imgOut2);
 
+    inicio_c = clock();
     enmascarar_c(buffer1,buffer2,buffer3,size);
+    fin_c = clock();
+    segundos_c = (int)(fin_c - inicio_c);
 
     fwrite(buffer1,1,size,imgOut);
 ```
-Por último liberamos la memoria de los buffer que ya no utilizamos y cerramos los archivos.
+Por último liberamos la memoria de los buffer que ya no utilizamos y cerramos los archivos. Además mostramos por pantalla las estadísticas de cada función.
 ```c
     free(buffer1);
     free(buffer2);
@@ -104,6 +117,8 @@ Por último liberamos la memoria de los buffer que ya no utilizamos y cerramos l
     fclose(mask);
     fclose(imgOut);
     fclose(imgOut2);
+    
+    printf("Total de posiciones: %ld\nTiempo transcurrido C: %d\nTiempo transcurrido ASM: %d\n(Expresado en unidades de Clock)\n", size, segundos_c, segundos_asm);
     
     return 0
 ```
