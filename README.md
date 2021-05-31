@@ -14,6 +14,7 @@
     - [Compilación](#compilación)
     - [Ejecución](#ejecución)
     - [Capturas](#capturas)
+    - [Conclusiones](#conclusiones)
 
 ## Descripción
 
@@ -245,3 +246,19 @@ Luego, las salidas que obtenemos se visualizan de la siguiente manera:
 **salida_asm.rgb**:
 
 ![image](https://user-images.githubusercontent.com/54609896/120133804-2f295500-c1a3-11eb-9931-f063ee228e94.png)
+### Conclusiones y comparación de performance
+
+Gracias a los experimentos realizados en el presente trabajo, fue posible llegar a la conclusión de que las ventajas que puede brindar el paradigma **SIMD** a la hora de implementar programas que realicen operaciones altamente paralelizables, cómo en este caso el procesamiento de imágenes, resultan verdaderamente significativas. Esto por supuesto reflejado en la gran brecha de rendimiento que hemos observado en diversas pruebas.
+
+A continuación se muestran algunos gráficos que permiten visualizar las diferencias entre ambas implementaciones. Para ello, se ejecutaron todos los casos de prueba **"Space"** un número determinado de veces y se obtuvo un promedio del rendimiento general de las mismas (expresado en unidades de clock):
+
+![tablaDatos](https://user-images.githubusercontent.com/54609896/120134640-f4282100-c1a4-11eb-8ae1-2d14351a75db.PNG)
+
+
+![Comparación C vs SIMD (Unidades de Clock)](https://user-images.githubusercontent.com/54609896/120134851-63057a00-c1a5-11eb-8cf0-5f6469bd1e94.png)
+
+
+![Evolución en Unidades de Clock](https://user-images.githubusercontent.com/54609896/120134866-6c8ee200-c1a5-11eb-9231-793401f09d69.png)
+
+
+
